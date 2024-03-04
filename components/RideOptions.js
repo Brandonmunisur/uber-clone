@@ -48,7 +48,7 @@ const RideOptions = () => {
           onPress={() => {
             navigation.navigate("NavigateCard");
           }}
-          style={tw` absolute py-5 left-5 z-50  rounded-full`}
+          style={tw` absolute py-4  left-5 z-50  rounded-full`}
         >
           <Icon name="chevron-left" type="fontawesome" />
         </TouchableOpacity>
@@ -80,7 +80,9 @@ const RideOptions = () => {
               source={{ uri: item.image }}
             />
             <View style={tw`-ml-6`}>
-              <Text style={tw`text-xl font-semibold `}>{item.title}</Text>
+              <Text style={tw`text-xl justify-between font-semibold `}>
+                {item.title}
+              </Text>
               <Text>{travelTimeInformation?.duration?.text}</Text>
             </View>
             <Text style={tw`text-xl text-justify `}>
@@ -88,7 +90,7 @@ const RideOptions = () => {
                 style: "currency",
                 currency: "ZAR",
               }).format(
-                (travelTimeInformation?.duration.value *
+                (travelTimeInformation?.duration?.value *
                   SURGE_CHARGE_RATE *
                   item.multiplier) /
                   10
@@ -98,12 +100,14 @@ const RideOptions = () => {
           </TouchableOpacity>
         )}
       />
-      <View style={tw`border-t border-gray-200`}>
+      <View style={tw`  border-gray-200`}>
         <TouchableOpacity
           disabled={!selected}
-          style={tw`bg-black py-3 m-2 rounded-xl ${!selected && "bg-gray-300"}`}
+          style={tw`bg-black py-3 m-2 rounded-xl  ${
+            !selected && "bg-gray-300"
+          }`}
         >
-          <Text style={tw`text-center text-white text-xl`}>
+          <Text style={tw`text-center  text-white text-xl`}>
             Choose {selected?.title}
           </Text>
         </TouchableOpacity>

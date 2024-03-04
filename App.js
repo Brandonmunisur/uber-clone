@@ -1,4 +1,5 @@
 // import { StatusBar } from "expo-status-bar";
+import SplashScreen from "./screens/SplashScreen";
 import React from "react";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { Provider } from "react-redux";
@@ -25,6 +26,11 @@ export default function App() {
             keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
           >
             <Stack.Navigator>
+              {/* <Stack.Screen
+                name="Splash"
+                component={SplashScreen}
+                options={{ headerShown: false }}
+              /> */}
               <Stack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
