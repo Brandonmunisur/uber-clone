@@ -100,7 +100,7 @@ const RideOptions = () => {
           </TouchableOpacity>
         )}
       />
-      <View style={tw`  border-gray-200`}>
+      <View style={tw`  border-gray-200 mt-auto`}>
         <TouchableOpacity
           disabled={!selected}
           style={tw`bg-black py-3 m-2 rounded-xl  ${
