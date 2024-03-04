@@ -12,6 +12,8 @@ import tw from "tailwind-react-native-classnames";
 import { Icon } from "@rneui/base";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectTravelTimeInformation } from "../slices/navSlice";
 const data = [
   {
     id: "123",
@@ -33,9 +35,12 @@ const data = [
   },
 ];
 
+const SURGE_CHARGE_RATE = 1.5;
+
 const RideOptions = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState();
+  const travelTimeInformation = useSelector(selectTravelTimeInformation);
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
       <View>
@@ -48,7 +53,7 @@ const RideOptions = () => {
           <Icon name="chevron-left" type="fontawesome" />
         </TouchableOpacity>
         <Text style={tw`  text-center py-4 font-medium text-xl`}>
-          Select a Ride
+          Select a Ride - {travelTimeInformation?.distance?.text}
         </Text>
       </View>
 
@@ -75,15 +80,25 @@ const RideOptions = () => {
               source={{ uri: item.image }}
             />
             <View style={tw`-ml-6`}>
-              <Text style={tw`text-xl font-semibold`}>{item.title}</Text>
-              <Text>Travel time...</Text>
+              <Text style={tw`text-xl font-semibold `}>{item.title}</Text>
+              <Text>{travelTimeInformation?.duration?.text}</Text>
             </View>
-            <Text style={tw`text-xl`}>$99</Text>
+            <Text style={tw`text-xl text-justify `}>
+              {new Intl.NumberFormat("en-ZA", {
+                style: "currency",
+                currency: "ZAR",
+              }).format(
+                (travelTimeInformation?.duration.value *
+                  SURGE_CHARGE_RATE *
+                  item.multiplier) /
+                  10
+              )}
+            </Text>
             {/* </View> */}
           </TouchableOpacity>
         )}
       />
-      <View style={tw`mt-auto border-t border-gray-200`}>
+      <View style={tw`border-t border-gray-200`}>
         <TouchableOpacity
           disabled={!selected}
           style={tw`bg-black py-3 m-2 rounded-xl ${!selected && "bg-gray-300"}`}
